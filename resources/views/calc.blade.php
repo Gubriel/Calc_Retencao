@@ -16,46 +16,37 @@
 
             {{-- Título dinâmico --}}
             <h1 class="text-2xl font-bold text-center mb-6 text-red-900">
-                Calular retenção
+                Possibilidade de retenção
             </h1>
 
             {{-- Exibir dados do cliente --}}
             <div class="flex space-x-3 mb-6">
-                <div>
-                    <label class="block text-red-900 font-semibold">Tempo de base</label>
-                    <input type="text" nome="cliente_nome" class="w-16 px-2 py-2 rounded bg-gray-200" disabled>
-                </div>
+                <label class="block text-red-900 font-semibold">Tempo de base</label>
+                <input type="text" nome="cliente_nome" value="16" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
             </div>
             <div class="flex space-x-3 mb-6">
-                <div>
-                    <label class="block text-red-900 font-semibold">Qntd. de visitas</label>
-                    <input type="text" name="cpf_cnpj" value="" class="w-16 px-2 py-2 rounded bg-gray-200" disabled>
-                </div>
+                <label class="block text-red-900 font-semibold">Qntd. de visitas</label>
+                <input type="text" nome="cliente_nome" value="4" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
             </div>
             <div class="flex space-x-3 mb-6">
-                <div>
-                    <label class="block text-red-900 font-semibold">Pagamentos em atraso</label>
-                    <input type="text" value="" class="w-16 px-2 py-2 rounded bg-gray-200" disabled>
-                </div>
+                <label class="block text-red-900 font-semibold">Pagamentos em atraso</label>
+                <input type="text" nome="cliente_nome" value="0" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
             </div>
-            <div>
+            <div class="flex space-x-3 mb-6">
                 <label class="block text-red-900 font-semibold">Receita média</label>
-                <input id="planoField" type="text" value="" class="w-full px-2 py-2 rounded bg-gray-200" disabled>
+                <input type="text" nome="cliente_nome" value="121" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
+            </div>
+            {{-- <div class="flex space-x-3 mb-6">
+                <label class="block text-red-900 font-semibold">Saldo Restante</label>
+                <input type="text" nome="cliente_nome" value="16" class="w-16 px-2 rounded bg-gray-200" disabled>
             </div>
             <div class="flex space-x-3 mb-6">
-                <div>
-                    <label class="block text-red-900 font-semibold">Saldo Restante</label>
-                    <input id="dadosField" type="" class="w-32 px-2 py-2 rounded bg-gray-200" disabled>
-                </div>
-                <div>
-                    <label class="block text-red-900 font-semibold">Expira em</label>
-                    <input id="expiraField" type="text" value="" class="w-32 px-2 py-2 rounded bg-gray-200" disabled>
-                </div>
-            </div>
-
+                <label class="block text-red-900 font-semibold">Expira em</label>
+                <input type="text" nome="cliente_nome" value="16" class="w-16 px-2 rounded bg-gray-200" disabled>
+            </div> --}}
             <div class="text-center">
                 <button type="submit" class="px-6 py-2 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600">
-                    Confirmar
+                    Calcular
                 </button>
             </div>
         </div>
