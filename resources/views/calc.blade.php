@@ -20,21 +20,35 @@
             </h1>
 
             {{-- Exibir dados do cliente --}}
-            <div class="flex space-x-3 mb-6">
-                <label class="block text-red-900 font-semibold">Tempo de base</label>
-                <input type="text" nome="cliente_nome" value="16" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
-            </div>
-            <div class="flex space-x-3 mb-6">
-                <label class="block text-red-900 font-semibold">Qntd. de visitas</label>
-                <input type="text" nome="cliente_nome" value="4" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
-            </div>
-            <div class="flex space-x-3 mb-6">
-                <label class="block text-red-900 font-semibold">Pagamentos em atraso</label>
-                <input type="text" nome="cliente_nome" value="0" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
-            </div>
-            <div class="flex space-x-3 mb-6">
-                <label class="block text-red-900 font-semibold">Receita média</label>
-                <input type="text" nome="cliente_nome" value="121" class="w-16 text-center px-2 rounded bg-gray-200" disabled>
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="flex p-2 items-center rounded bg-gray-100 space-x-3">
+                    <div class="flex-colunm space-y-1">
+                        <label class="block text-red-900 font-semibold">Tempo de base:</label>
+                        <label class="block text-red-900 font-semibold">Qntd. de visitas:</label>
+                        <label class="block text-red-900 font-semibold">Pagamentos em atraso:</label>
+                        <label class="block text-red-900 font-semibold">Receita média:</label>
+                    </div>
+                    <div class="flex-colunm space-y-1">
+                        <input type="text" nome="cliente_nome" value="16" class="block font-semibold w-16 text-center px-2 bg-white" disabled>
+                        <input type="text" nome="cliente_nome" value="4" class="block font-semibold w-16 text-center px-2 bg-white" disabled>
+                        <input type="text" nome="cliente_nome" value="0" class="block font-semibold w-16 text-center px-2 bg-white" disabled>
+                        <input type="text" nome="cliente_nome" value="121" class="block font-semibold w-16 text-center px-2 bg-white" disabled>
+                    </div>
+                </div>
+                <div class="flex p-2 items-center rounded bg-gray-100 space-x-3">
+                    <div class="flex-colunm space-y-1">
+                        <label class="block text-red-900 font-semibold">Ticket Médio:</label>
+                        <label class="block text-red-900 font-semibold">Taxa de churn:</label>
+                        <label class="block text-red-900 font-semibold">Margem de contribuição:</label>
+                        <label class="block text-red-900 font-semibold">LTV:</label>
+                    </div>
+                    <div class="flex-colunm space-y-1">
+                        <input type="text" nome="cliente_nome" value="16" class="block font-semibold w-16 text-center px-2 bg-white">
+                        <input type="text" nome="cliente_nome" value="4" class="block font-semibold w-16 text-center px-2 bg-white">
+                        <input type="text" nome="cliente_nome" value="0" class="block font-semibold w-16 text-center px-2 bg-white">
+                        <input type="text" nome="cliente_nome" value="121" class="block font-semibold w-16 text-center px-2 bg-white">
+                    </div>
+                </div>
             </div>
             {{-- <div class="flex space-x-3 mb-6">
                 <label class="block text-red-900 font-semibold">Saldo Restante</label>
