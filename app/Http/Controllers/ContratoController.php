@@ -29,8 +29,6 @@ class ContratoController extends Controller
         $response = Http::withHeaders($headers)
             ->post(env('IXC_API_URL') . '/cliente_contrato', $body);
 
-        // dd($headers,$body,$response->body());
-
         if ($response->failed()) {
             return back()->withErrors(['msg' => 'Erro ao consultar contratos.']);
         }

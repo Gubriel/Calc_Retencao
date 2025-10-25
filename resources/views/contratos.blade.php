@@ -20,16 +20,14 @@
                     <th>ID</th>
                     <th>Plano</th>
                     <th>Mensalidade</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($contratos as $contrato)
                     <tr>
                         <td>{{ $contrato['id'] ?? '-' }}</td>
-                        <td>{{ $contrato['descricao'] ?? '-' }}</td>
+                        <td>{{ $contrato['contrato'] ?? '-' }}</td>
                         <td>R$ {{ $contrato['valor_mensal'] ?? '0,00' }}</td>
-                        <td>{{ $contrato['status'] ?? '-' }}</td>
                     </tr>
                 @endforeach
             </tbody>
