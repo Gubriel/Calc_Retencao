@@ -9,7 +9,6 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        // Apenas exibe o formulário
         return view('buscar-cliente');
     }
 
@@ -25,7 +24,7 @@ class ClienteController extends Controller
 
         $body = [
             'qtype' => 'cliente.cnpj_cpf',
-            'query' => '110.160.769-67',
+            'query' => $cpfCnpj,
             'oper' => '=',
             'page' => '1',
             'rp' => '20',
@@ -50,7 +49,11 @@ class ClienteController extends Controller
 
         $cliente = $data['registros'][0];
 
-        // Redireciona para a rota que consulta contratos
-        return redirect()->route('contratos.listar', ['id_cliente' => $cliente['id']]);
+        session([
+            'id_cliente' => $cliente['id'],
+            'nome_cliente' => $cliente['razao'] ?? $cliente['fantasia']
+        ]);
+
+        return redirect()->route('contratos.listar');
     }
 }

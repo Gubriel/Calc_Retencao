@@ -7,13 +7,18 @@ use Illuminate\Support\Facades\Http;
 
 class ContratoController extends Controller
 {
-    public function listarContratos($id_cliente)
+    public function listarContratos()
     {
+
+        $id_cliente = session('id_cliente');
+        $nomeCliente = session('nome_cliente');
+
         $headers = [
             'Authorization' => 'Basic ' . base64_encode(env('IXC_API_AUTH')),
             'ixcsoft' => 'listar',
             'Content-Type' => 'application/json',
         ];
+
 
         $body = [
             "qtype" => "cliente_contrato.id_cliente",
@@ -34,10 +39,8 @@ class ContratoController extends Controller
         }
 
         $data = $response->json();
+        $contratos = $data['registros'] ?? [];
 
-        return view('contratos', [
-            'contratos' => $data['registros'] ?? [],
-            'id_cliente' => $id_cliente,
-        ]);
+        return view('contratos', compact('contratos', 'nomeCliente', 'id_cliente'));
     }
 }

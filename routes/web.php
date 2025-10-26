@@ -11,4 +11,4 @@ Route::get('/', [ClienteController::class, 'index'])->name('cliente.form');
 Route::post('/buscar-cliente', [ClienteController::class, 'buscarCliente'])->name('cliente.buscar');
 
 // Consulta contratos do cliente pelo ID
-Route::get('/contratos/{id_cliente}', [ContratoController::class, 'listarContratos'])->name('contratos.listar');
+Route::get('/contratos', [ContratoController::class, 'listarContratos'])->name('contratos.listar');
