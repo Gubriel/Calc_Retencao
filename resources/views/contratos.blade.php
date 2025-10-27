@@ -29,6 +29,7 @@
                                 <th>Numero</th>
                                 <th>Bairro</th>
                                 <th>Cidade</th>
+                                <th>Tipo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,11 +37,12 @@
                             <tr>
                                 <td>{{ $contrato['id'] ?? '-' }}</td>
                                 <td>{{ $contrato['contrato'] ?? '-' }}</td>
-                                <td>{{ $contrato['data_ativacao'] ?? '-' }}</td>
+                                <td>{{ maskData($contrato['data_ativacao']) ?? '-' }}</td>
                                 <td>{{ $contrato['endereco'] ?? $contrato['endereco_novo'] }}</td>
-                                <td>{{ $contrato['numero'] ?? '-' }}</td>
-                                <td>{{ $contrato['bairro'] ?? '-' }}</td>
-                                <td>{{ $contrato['cidade'] ?? '-' }}</td>
+                                <td>{{ $contrato['numero'] ?? $contrato['numero_novo'] }}</td>
+                                <td>{{ $contrato['bairro'] ?? $contrato['bairro_novo'] }}</td>
+                                <td>{{ maskCidade($contrato['cidade']) ?? '-' }}</td>
+                                <td>{{ maskTipo($contrato['tipo']) }}</td>
                             </tr>
                         @endforeach
                         </tbody>
