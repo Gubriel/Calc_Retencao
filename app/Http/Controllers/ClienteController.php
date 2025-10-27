@@ -24,10 +24,10 @@ class ClienteController extends Controller
 
         $body = [
             'qtype' => 'cliente.cnpj_cpf',
-            'query' => $cpfCnpj,
+            'query' => maskDocumento($cpfCnpj),
             'oper' => '=',
             'page' => '1',
-            'rp' => '20',
+            'rp' => '20000',
             'sortname' => 'cliente.id',
             'sortorder' => 'asc',
             'grid_param' => '[{"TB":"cliente.ativo","OP":"=","P":"S"}]'

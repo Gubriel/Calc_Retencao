@@ -1,5 +1,17 @@
 <?php
 
+if (!function_exists('maskDocumento')) {
+    function maskDocumento($doc) {
+        $doc = preg_replace('/\D/', '', $doc);
+        if (strlen($doc) === 11) {
+            return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $doc);
+        } elseif (strlen($doc) === 14) {
+            return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "$1.$2.$3/$4-$5", $doc);
+        }
+        return $doc;
+    }
+}
+
 if (!function_exists('maskData')) {
     function maskData($data) {
         $data = preg_replace('/\D/', '', $data);
@@ -34,12 +46,12 @@ if (!function_exists('maskCidade')) {
             3980 => 'Castro',
             3977 => 'Carambeí',
             3976 => 'Capitão Leônidas Marques',
-            185  => 'Capanema',
+            3975  => 'Capanema',
             4031 => 'Francisco Beltrão',
             4024 => 'Flor da Serra do Sul',
             4167 => 'Pato Branco',
             4208 => 'Realeza',
-            930  => 'Cascavel',
+            3979  => 'Cascavel',
             1801 => 'Pinhão',
             3973 => 'Candói',
             3997 => 'Coronel Vivida',

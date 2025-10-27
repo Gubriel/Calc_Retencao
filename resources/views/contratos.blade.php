@@ -17,10 +17,10 @@
             @if(empty($contratos))
                 <div class="alert alert-warning">Nenhum contrato ativo encontrado.</div>
             @else
-                <div class="p-4 bg-white rounded shadow">
-                    <h1 class="text-xl font-semibold text-center mb-6">Planos ativos</h1>
-                    <table class="table table-hover table-bordered bg-white shadow-sm">
-                        <thead class="table-danger">
+                <div class="p-1 bg-red-900 rounded shadow">
+                    <table class="table caption-top table-bg-red table-borderless mb-0 table-striped table-hover">
+                        <caption class="text-white text-xl font-semibold text-center">Planos ativos</caption>
+                        <thead class="table-active">
                             <tr>
                                 <th>ID</th>
                                 <th>Plano</th>
@@ -36,7 +36,16 @@
                         @foreach($contratos as $contrato)
                             <tr>
                                 <td>{{ $contrato['id'] ?? '-' }}</td>
-                                <td>{{ $contrato['contrato'] ?? '-' }}</td>
+                                <td>
+                                    <form action="{{ route('cliente.detalhes') }}" method="POST" class="m-0 p-0">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $contrato['id'] }}">
+                                        <input type="hidden" name="nome" value="{{ $contrato['contrato'] }}">
+                                        <button type="submit" class="text-red-700 hover:text-red-900 font-semibold w-full text-left">
+                                            {{ $contrato['contrato'] ?? '-' }}
+                                        </button>
+                                    </form>
+                                </td>
                                 <td>{{ maskData($contrato['data_ativacao']) ?? '-' }}</td>
                                 <td>{{ $contrato['endereco'] ?? $contrato['endereco_novo'] }}</td>
                                 <td>{{ $contrato['numero'] ?? $contrato['numero_novo'] }}</td>
