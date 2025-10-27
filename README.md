@@ -47,6 +47,11 @@ php artisan key:generate
 php artisan migrate
 ```
 
+7. E então execute o Seeder
+```bash
+php artisan db:seed
+```
+
 ## 🔒 Configurando credenciais da API do IXC
 
 - No arquivo .env adicione as vareaveis:
