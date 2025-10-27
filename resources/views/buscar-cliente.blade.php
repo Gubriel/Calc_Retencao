@@ -9,7 +9,9 @@
 </head>
 <body class="bg-light">
 <div class="container w-full max-w-2xl py-5">
-    <h1 class="text-2xl font-bold text-center mb-6 text-red-900">Consultar Cliente</h1>
+    <a href="{{ route('sair') }}" class="btn absolute top-4 right-4 flex items-center space-x-2 text-white font-semibold btn-danger">Sair</a>
+    <h1 class="text-2xl font-bold text-center mb-6 mt-5 text-red-900">Consultar Cliente</h1>
+
 
     @if ($errors->any())
         <div class="alert alert-danger">{{ $errors->first() }}</div>

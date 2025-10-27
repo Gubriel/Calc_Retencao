@@ -10,9 +10,10 @@
     <body class="bg-light">
         <div class="container w-full py-5">
 
-            <a href="{{ route('cliente.form') }}" class="absolute top-4 left-4 flex items-center space-x-2 text-red-600 hover:text-red-800 font-semibold">← Voltar</a>
+            <a href="{{ route('cliente.form') }}" class="btn absolute top-4 left-4 flex items-center space-x-2 text-white font-semibold btn-danger">← Voltar</a>
+            <a href="{{ route('sair') }}" class="btn absolute top-4 right-4 flex items-center space-x-2 text-white font-semibold btn-danger">Sair</a>
 
-            <h1 class="text-2xl font-bold text-center mb-6 text-red-900">{{ $id_cliente }} - {{ $nomeCliente }}</h1>
+            <h1 class="text-2xl font-bold text-center mb-6 mt-5 text-red-900">{{ $id_cliente }} - {{ $nomeCliente }}</h1>
 
             @if(empty($contratos))
                 <div class="alert alert-warning">Nenhum contrato ativo encontrado.</div>

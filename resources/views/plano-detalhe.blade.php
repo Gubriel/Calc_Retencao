@@ -10,7 +10,8 @@
     <body class="bg-light">
         <div class="container w-full max-w-2xl py-5">
 
-            <a href="{{ url()->previous() }}" class="absolute top-4 left-4 flex items-center space-x-2 text-red-600 hover:text-red-800 font-semibold">← Voltar</a>
+            <a href="{{ route('cliente.form') }}" class="btn absolute top-4 left-4 flex items-center space-x-2 text-white font-semibold btn-danger">← Voltar</a>
+            <a href="{{ route('sair') }}" class="btn absolute top-4 right-4 flex items-center space-x-2 text-white font-semibold btn-danger">Sair</a>
 
             <h1 class="text-2xl font-bold text-center mb-6 text-red-900">{{ $nome }}</h1>
 

@@ -67,6 +67,7 @@ php artisan serve
 npm run dev
 ```
 
+3. Acesse `http://127.0.0.1:8000/` no seu navegador
 
 ***
 
