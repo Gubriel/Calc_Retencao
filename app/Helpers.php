@@ -12,6 +12,14 @@ if (!function_exists('maskDocumento')) {
     }
 }
 
+if (!function_exists('maskMeses')) {
+    function maskMeses($quantidade)
+    {
+        $quantidade = (int) $quantidade;
+        return $quantidade === 1 ? '1 Mês' : "{$quantidade} Meses";
+    }
+}
+
 if (!function_exists('maskData')) {
     function maskData($data) {
         $data = preg_replace('/\D/', '', $data);

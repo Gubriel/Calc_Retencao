@@ -11,6 +11,7 @@ class PlanoController extends Controller
     {
 
         $id = $request->input('id');
+        $id_cliente = $request->input('id_cliente');
         $nome = $request->input('nome');
 
         $headers = [
@@ -20,31 +21,84 @@ class PlanoController extends Controller
         ];
 
 
-        $body = [
+        $bodyFaturas = [
             'qtype' => 'fatura.id_contrato',
             'query' => $id,
             'oper' => '=',
             'page' => '1',
-            'rp' => '20',
+            'rp' => '20000',
             'sortorder' => 'desc'
         ];
 
-        // Buscar os dados de faturas
-        $response = Http::withHeaders($headers)
-            ->post(env('IXC_API_URL') . '/fatura', $body);
+        $bodyReceber = [
+            'qtype' => 'fn_areceber.id_cliente',
+            'query' => $id_cliente,
+            'oper' => '=',
+            'page' => '1',
+            'rp' => '20',
+            'sortname' => 'fn_areceber.id',
+            'sortorder' => 'desc',
+            'grid_param' => '[{"TB":"fn_areceber.status", "OP":"=", "P":"A"}]'
+        ];
 
-        if ($response->failed()) {
+        $bodyOS = [
+            'qtype' => 'su_oss_chamado.id_contrato_kit',
+            'query' => '256674',
+            'oper' => '=',
+            'page' => '1',
+            'rp' => '20',
+            'sortname' => 'su_oss_chamado.id',
+            'sortorder' => 'desc',
+            'grid_param' => '[{"TB":"su_oss_chamado.id_assunto", "OP":"=", "P":"17"},{"TB":"su_oss_chamado.status", "OP":"=", "P":"F"},{"TB":"su_oss_chamado.tipo", "OP":"=", "P":"C"}]'
+        ];
+
+        // Buscar os dados de faturas
+        $responseFaturas = Http::withHeaders($headers)
+            ->post(env('IXC_API_URL') . '/fatura', $bodyFaturas);
+
+        $responseReceber = Http::withHeaders($headers)
+            ->post(env('IXC_API_URL') . '/fn_areceber', $bodyReceber);
+
+        $responseOS = Http::withHeaders($headers)
+            ->post(env('IXC_API_URL') . '/su_oss_chamado', $bodyOS);
+
+        if ($responseFaturas->failed()) {
             return back()->withErrors(['msg' => 'Erro ao consultar contratos.']);
         }
 
-        $data = $response->json();
-        $faturas = $data['registros'] ?? [];
+        if ($responseReceber->failed()) {
+            return back()->withErrors(['msg' => 'Erro ao consultar as faturas.']);
+        }
+
+        if ($responseOS->failed()) {
+            return back()->withErrors(['msg' => 'Erro ao consultar as OSs.']);
+        }
+
+        $dataFaturas = $responseFaturas->json();
+        $faturas = $dataFaturas['registros'] ?? [];
+
+        $dataReceber = $responseReceber->json();
+        $receber = $dataReceber['registros'] ?? [];
+
+        $dataOS = $responseOS->json();
+        $oss = $dataOS['registros'] ?? [];
+
+        if ($receber == []) {
+            $qntd_atrasos = 0;
+        } else {
+            $faturasAbertas = collect($receber);
+            $faturasContrato = collect($faturas);
+            $idsAbertos = $faturasAbertas->pluck('id')->toArray();
+            $filtraAbertas = $faturasContrato->filter(function ($faturas) use ($idsAbertos) {
+                return in_array($faturas['id_receber'], $idsAbertos);
+            });
+            $qntd_atrasos = $filtraAbertas->count();
+        }
 
         // Calculos de Rentabiliade
 
-        $base = count($faturas);
-        $qntd_visitas = 0;
-        $qntd_atrasos = 0;
+        $base = collect($faturas)->count('valor_total');
+        $qntd_visitas = collect($oss)->count('id');
 
         $tkt_medio = 111;
         $tx_churn = 1.25/100;
@@ -79,7 +133,7 @@ class PlanoController extends Controller
         $movel_gratis = round(($ltv_cliente/39.9)*$tx_retencao);
         $sva_gratis = round(($ltv_cliente/44.9/1.5)*$tx_retencao);
 
-        // Retorna para a view de detalhes
+        // Retorna
         return view('plano-detalhe', compact('faturas', 'media', 'nome', 'base', 'qntd_visitas', 'qntd_atrasos', 'retencao', 'mensalidades', 'movel_gratis', 'sva_gratis'));
     }
 }

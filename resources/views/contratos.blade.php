@@ -40,6 +40,7 @@
                                     <form action="{{ route('cliente.detalhes') }}" method="POST" class="m-0 p-0">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $contrato['id'] }}">
+                                        <input type="hidden" name="id_cliente" value="{{ $id_cliente }}">
                                         <input type="hidden" name="nome" value="{{ $contrato['contrato'] }}">
                                         <button type="submit" class="text-red-700 hover:text-red-900 font-semibold w-full text-left">
                                             {{ $contrato['contrato'] ?? '-' }}
