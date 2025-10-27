@@ -1,6 +1,6 @@
 ## 🧩 Calculadora de Retenção — Guia de Instalação e Configuração
 
-Este projeto é uma aplicação desenvolvida em Laravel para consulta e gerenciamento de informações financeiras de clientes, integrando-se a endpoints externos para exibir dados como numero de faturas não pagas, listar contratos do clinte e realizar calculos para decidir se é vantajoso oferecer re.Este projeto foi desenvolvido em Laravel e pode ser instalado em qualquer ambiente que suporte PHP e Composer.
+Este projeto é uma aplicação desenvolvida em Laravel para consulta e gerenciamento de informações financeiras de clientes, integrando-se a endpoints externos para exibir dados como numero de faturas não pagas, listar contratos do clinte e realizar calculos para decidir se é vantajoso oferecer opções de retençaõ paar os clientes.O projeto pode ser instalado em qualquer ambiente que suporte PHP e Composer.
 Abaixo estão as instruções completas para configurar o ambiente e executar o projeto localmente.
 
 
