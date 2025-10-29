@@ -103,8 +103,8 @@ class PlanoController extends Controller
         $tkt_medio = 111;
         $tx_churn = 1.25/100;
         $mrg_contrib = 75/100;
-        $vis_tecnica = 60;
-        $cobranca = 15;
+        $vis_tecnica = 73.03;
+        $cobranca = 5.36;
         $equipamentos = 250;
         $ativacao = 200;
         $tx_retencao = 10/100;
@@ -114,7 +114,10 @@ class PlanoController extends Controller
         $cac = $equipamentos+$ativacao;
         $total_suporte = $qntd_visitas * $vis_tecnica;
         $total_cobranca = $qntd_atrasos * $cobranca;
-        $media = collect($faturas)->pluck('valor_total')->avg();
+        $media = collect($faturas)->pluck('valor_total')
+            ->map(fn($v) => (float) $v) // float
+            ->avg();
+
 
         $ltv_cliente = $base*$media*$mrg_contrib;
         $ltv_perda = $ltv-$ltv_cliente;

@@ -31,6 +31,5 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-
 // Autenticação do Breeze
 require __DIR__.'/auth.php';

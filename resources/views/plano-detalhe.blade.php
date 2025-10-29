@@ -10,7 +10,7 @@
     <body class="bg-light">
         <div class="container w-full max-w-2xl py-5">
 
-            <a href="{{ route('cliente.form') }}" class="btn absolute top-4 left-4 flex items-center space-x-2 text-white font-semibold btn-danger">← Voltar</a>
+            <a href="{{ url()->previous() }}" class="btn absolute top-4 left-4 flex items-center space-x-2 text-white font-semibold btn-danger">← Voltar</a>
             <a href="{{ route('sair') }}" class="btn absolute top-4 right-4 flex items-center space-x-2 text-white font-semibold btn-danger">Sair</a>
 
             <h1 class="text-2xl font-bold text-center mb-6 text-red-900">{{ $nome }}</h1>
@@ -27,21 +27,21 @@
                             <input type="text" nome="cliente_nome" value="{{ maskMeses($base) }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
                         </div>
                         @if ($qntd_visitas > 0)
-                        <div>
-                            <label class="block text-red-900 font-semibold">Qntd. de visitas técnicas</label>
-                            <input type="text" nome="cliente_nome" value="{{ $qntd_visitas }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
-                        </div>
+                            <div>
+                                <label class="block text-red-900 font-semibold">Qntd. de visitas técnicas</label>
+                                <input type="text" nome="cliente_nome" value="{{ $qntd_visitas }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
+                            </div>
                         @endif
                         @if ($qntd_atrasos > 0)
-                        <div>
-                            <label class="block text-red-900 font-semibold">Qntd. de atrasos</label>
-                            <input type="text" nome="cliente_nome" value="{{ maskMeses($qntd_atrasos) }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
-                        </div>
+                            <div>
+                                <label class="block text-red-900 font-semibold">Qntd. de atrasos</label>
+                                <input type="text" nome="cliente_nome" value="{{ maskMeses($qntd_atrasos) }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
+                            </div>
                         @endif
-                        <div>
-                            <label class="block text-red-900 font-semibold">Receita media</label>
-                            <input type="text" nome="cliente_nome" value="R${{ number_format($media, 2, ',', '.') }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
-                        </div>
+                            <div>
+                                <label class="block text-red-900 font-semibold">Receita media</label>
+                                <input type="text" nome="cliente_nome" value="R${{ number_format($media, 2, ',', '.') }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
+                            </div>
                         @if($retencao == 'Não')
                             <div>
                                 <label class="block text-red-900 font-semibold">Reter cliente:</label>
