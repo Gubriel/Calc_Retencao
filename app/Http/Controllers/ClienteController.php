@@ -34,6 +34,7 @@ class ClienteController extends Controller
         ];
 
         $response = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
             ->withBody(json_encode($body), 'aplication/json')
             ->post(env('IXC_API_URL') . '/cliente');
 
