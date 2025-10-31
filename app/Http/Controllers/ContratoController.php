@@ -32,6 +32,7 @@ class ContratoController extends Controller
         ];
 
         $response = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
             ->post(env('IXC_API_URL') . '/cliente_contrato', $body);
 
         if ($response->failed()) {

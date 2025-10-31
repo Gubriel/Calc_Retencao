@@ -62,13 +62,13 @@
                             @endif
                             @if ($movel_gratis > 0)
                                 <div>
-                                    <label class="block text-red-900 font-semibold">Plano Movel Grátis</label>
+                                    <label class="block text-red-900 font-semibold">Plano móvel (valor de R$ 39,90)</label>
                                     <input type="text" nome="cliente_nome" value="{{ maskMeses($movel_gratis) }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
                                 </div>
                             @endif
                             @if ($sva_gratis > 0)
                                 <div>
-                                    <label class="block text-red-900 font-semibold">SVAs Grátis</label>
+                                    <label class="block text-red-900 font-semibold">SVA (valor de R$ 44,90)</label>
                                     <input type="text" nome="cliente_nome" value="{{ maskMeses($sva_gratis) }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
                                 </div>
                             @endif

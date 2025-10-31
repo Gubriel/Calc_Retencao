@@ -54,12 +54,15 @@ class PlanoController extends Controller
 
         // Buscar os dados de faturas
         $responseFaturas = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
             ->post(env('IXC_API_URL') . '/fatura', $bodyFaturas);
 
         $responseReceber = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
             ->post(env('IXC_API_URL') . '/fn_areceber', $bodyReceber);
 
         $responseOS = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
             ->post(env('IXC_API_URL') . '/su_oss_chamado', $bodyOS);
 
         if ($responseFaturas->failed()) {
