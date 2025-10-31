@@ -110,7 +110,7 @@ class PlanoController extends Controller
         $cobranca = 5.36;
         $equipamentos = 250;
         $ativacao = 200;
-        $tx_retencao = 10/100;
+        $tx_retencao = $request->input('tx_retencao') / 100;
 
         $ltv = ($tkt_medio*$mrg_contrib)/$tx_churn;
         $lt = 1/$tx_churn;

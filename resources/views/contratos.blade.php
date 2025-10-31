@@ -25,6 +25,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Plano</th>
+                                <th>Taxa de Retenção</th>
                                 <th>Data de Ativação</th>
                                 <th>Endereço</th>
                                 <th>Numero</th>
@@ -37,8 +38,8 @@
                         @foreach($contratos as $contrato)
                             <tr>
                                 <td>{{ $contrato['id'] ?? '-' }}</td>
-                                <td>
-                                    <form action="{{ route('cliente.detalhes') }}" method="POST" class="m-0 p-0">
+                                <form action="{{ route('cliente.detalhes') }}" method="POST" class="m-0 p-0">
+                                    <td>
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $contrato['id'] }}">
                                         <input type="hidden" name="id_cliente" value="{{ $id_cliente }}">
@@ -46,8 +47,16 @@
                                         <button type="submit" class="text-red-700 hover:text-red-900 font-semibold w-full text-left">
                                             {{ $contrato['contrato'] ?? '-' }}
                                         </button>
-                                    </form>
-                                </td>
+                                    </td>
+                                    <td>
+                                        <select class="form-select w-auto" name="tx_retencao" id="inputGroupSelect01">
+                                            <option value="5">5%</option>
+                                            <option value="7.5">7,5%</option>
+                                            <option selected value="10">10%</option>
+                                            <option value="12.5">12,5%</option>
+                                        </select>
+                                    </td>
+                                </form>
                                 <td>{{ maskData($contrato['data_ativacao']) ?? '-' }}</td>
                                 <td>{{ $contrato['endereco'] ?? $contrato['endereco_novo'] }}</td>
                                 <td>{{ $contrato['numero'] ?? $contrato['numero_novo'] }}</td>
