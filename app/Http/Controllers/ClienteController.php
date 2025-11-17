@@ -33,6 +33,52 @@ class ClienteController extends Controller
             'grid_param' => '[{"TB":"cliente.ativo","OP":"=","P":"S"}]'
         ];
 
+        $bodyFaturas = [
+            'qtype' => 'fatura.id_contrato',
+            'query' => ,
+            'oper' => '>',
+            'page' => '1',
+            'rp' => '20000',
+            'sortorder' => 'desc'
+        ];
+
+        $bodyReceber = [
+            'qtype' => 'fn_areceber.id_cliente',
+            'query' => ,
+            'oper' => '>',
+            'page' => '1',
+            'rp' => '200',
+            'sortname' => 'fn_areceber.id',
+            'sortorder' => 'desc',
+            'grid_param' => '[{"TB":"fn_areceber.status", "OP":"=", "P":"A"}]'
+        ];
+
+        $bodyOS = [
+            'qtype' => 'su_oss_chamado.id_contrato_kit',
+            'query' => '256674',
+            'oper' => '=',
+            'page' => '1',
+            'rp' => '200',
+            'sortname' => 'su_oss_chamado.id',
+            'sortorder' => 'desc',
+            'grid_param' => '[{"TB":"su_oss_chamado.id_assunto", "OP":"=", "P":"17"},{"TB":"su_oss_chamado.status", "OP":"=", "P":"F"},{"TB":"su_oss_chamado.tipo", "OP":"=", "P":"C"}]'
+        ];
+
+        // Buscar os dados de faturas
+        $responseFaturas = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
+            ->post(env('IXC_API_URL') . '/fatura', $bodyFaturas);
+
+        dd($responseFaturas);
+
+        $responseReceber = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
+            ->post(env('IXC_API_URL') . '/fn_areceber', $bodyReceber);
+
+        $responseOS = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
+            ->post(env('IXC_API_URL') . '/su_oss_chamado', $bodyOS);
+
         $response = Http::withHeaders($headers)
             ->withOptions(['verify' => false])
             ->withBody(json_encode($body), 'aplication/json')
