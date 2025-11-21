@@ -33,18 +33,10 @@ class ClienteController extends Controller
             'grid_param' => '[{"TB":"cliente.ativo","OP":"=","P":"S"}]'
         ];
 
-        $bodyFaturas = [
-            'qtype' => 'fatura.id_contrato',
-            'query' => ,
-            'oper' => '>',
-            'page' => '1',
-            'rp' => '20000',
-            'sortorder' => 'desc'
-        ];
-
+        /*
         $bodyReceber = [
             'qtype' => 'fn_areceber.id_cliente',
-            'query' => ,
+            'query' => $cpfCnpj,
             'oper' => '>',
             'page' => '1',
             'rp' => '200',
@@ -62,22 +54,7 @@ class ClienteController extends Controller
             'sortname' => 'su_oss_chamado.id',
             'sortorder' => 'desc',
             'grid_param' => '[{"TB":"su_oss_chamado.id_assunto", "OP":"=", "P":"17"},{"TB":"su_oss_chamado.status", "OP":"=", "P":"F"},{"TB":"su_oss_chamado.tipo", "OP":"=", "P":"C"}]'
-        ];
-
-        // Buscar os dados de faturas
-        $responseFaturas = Http::withHeaders($headers)
-            ->withOptions(['verify' => false])
-            ->post(env('IXC_API_URL') . '/fatura', $bodyFaturas);
-
-        dd($responseFaturas);
-
-        $responseReceber = Http::withHeaders($headers)
-            ->withOptions(['verify' => false])
-            ->post(env('IXC_API_URL') . '/fn_areceber', $bodyReceber);
-
-        $responseOS = Http::withHeaders($headers)
-            ->withOptions(['verify' => false])
-            ->post(env('IXC_API_URL') . '/su_oss_chamado', $bodyOS);
+        ];*/
 
         $response = Http::withHeaders($headers)
             ->withOptions(['verify' => false])
@@ -95,6 +72,20 @@ class ClienteController extends Controller
         }
 
         $cliente = $data['registros'][0];
+
+        $bodyFaturas = [
+            'qtype' => 'fatura.id_cliente',
+            'query' => $cliente['id'],
+            'oper' => '=',
+            'page' => '1',
+            'rp' => '20000',
+            'sortorder' => 'desc'
+        ];
+
+        $responseFaturas = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
+            ->withBody(json_encode($body), 'aplication/json')
+            ->post(env('IXC_API_URL') . '/faturas');
 
         session([
             'id_cliente' => $cliente['id'],

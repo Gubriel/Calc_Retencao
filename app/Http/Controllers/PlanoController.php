@@ -20,7 +20,6 @@ class PlanoController extends Controller
             'Content-Type' => 'application/json',
         ];
 
-
         $bodyFaturas = [
             'qtype' => 'fatura.id_contrato',
             'query' => $id,
@@ -120,7 +119,6 @@ class PlanoController extends Controller
         $media = collect($faturas)->pluck('valor_total')
             ->map(fn($v) => (float) $v) // float
             ->avg();
-
 
         $ltv_cliente = $base*$media*$mrg_contrib;
         $ltv_perda = $ltv-$ltv_cliente;

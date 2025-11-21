@@ -19,6 +19,15 @@
 
             <h1 class="text-2xl font-bold text-center mb-6 mt-5 text-red-900">{{ $id_cliente }} - {{ $nomeCliente }}</h1>
 
+            <div class="p-1 mb-6 rounded shadow">
+                    <div  class="p-1  text-xl font-bold text-center text-red-900">
+                        Detalhes do cliente
+                    </div>
+                    <div class="text-left text-xl">
+                        Total de parcelas atrasadas
+                    </div>
+            </div>
+
             @if(empty($contratos))
                 <div class="alert alert-warning">Nenhum contrato ativo encontrado.</div>
             @else
@@ -71,6 +80,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
                 @endif
             </div>
         </div>
