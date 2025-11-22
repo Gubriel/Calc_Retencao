@@ -19,7 +19,6 @@ class ContratoController extends Controller
             'Content-Type' => 'application/json',
         ];
 
-
         $body = [
             "qtype" => "cliente_contrato.id_cliente",
             "query" => $id_cliente,

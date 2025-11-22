@@ -17,15 +17,30 @@
             <a href="{{ route('cliente.form') }}" class="btn absolute top-4 left-4 flex items-center space-x-2 text-white font-semibold btn-danger">← Voltar</a>
             <a href="{{ route('sair') }}" class="btn absolute top-4 right-4 flex items-center space-x-2 text-white font-semibold btn-danger">Sair</a>
 
-            <h1 class="text-2xl font-bold text-center mb-6 mt-5 text-red-900">{{ $id_cliente }} - {{ $nomeCliente }}</h1>
-
-            <div class="p-1 mb-6 rounded shadow">
-                    <div  class="p-1  text-xl font-bold text-center text-red-900">
-                        Detalhes do cliente
+            <div class="p-1 mb-6 mt-5 rounded shadow">
+                <h1 class="text-2xl p-3 font-bold text-center text-red-900">{{ $id_cliente }} - {{ $nomeCliente }}</h1>
+                <div class="text-left flex pr-6 pl-6 pt-3 text-xl text-red-900">
+                    <div class="row p-1 col-6 bg-gray-300 justify-content-between">
+                        <div class="col-sm-6">CPF/CNPJ: 112.321.435-63</div>
+                        <div class="col-md-6">Endereço: Rua rer</div>
+                        <div class="col-md-6">Numero: 71</div>
+                        <div class="col-md-6">CEP: 34310-001</div>
+                        <div class="col-md-6">Bairro: rewdfdsx</div>
+                        <div class="col-md-6">Condominio: 34223</div>
+                        <div class="col-md-6">Cidade: ssssssss</div>
+                        <div class="col-md-6">Complemento: relldlfms,dm</div>
                     </div>
-                    <div class="text-left text-xl">
-                        Total de parcelas atrasadas
+                    <div class="row p-1 col-6 justify-content-between">
+                        <div class="col-md-6">Data de cadastro:</div>
+                        <div class="col-md-6">Total de parcelas em atraso:</div>
+                        <div class="col-md-6">Total de Contratos de internet ativos:</div>
                     </div>
+                </div>
+                <div class="text-center itens-center flex pr-6 pl-6 pt-3 text-xl text-black">
+                    <div class="row p-1 col-md-12 bg-green-300 justify-content-between">
+                        <div class="col-md-12">Reter cliente</div>
+                    </div>
+                </div>
             </div>
 
             @if(empty($contratos))
@@ -70,11 +85,11 @@
                                             </select>
                                         </td>
                                     </form>
-                                    <td>{{ maskData($contrato['data_ativacao']) ?? '-' }}</td>
+                                    <td>{{ maskData($contrato['data_ativacao']) ?? 'N/A' }}</td>
                                     <td>{{ $contrato['endereco'] ?? $contrato['endereco_novo'] }}</td>
                                     <td>{{ $contrato['numero'] ?? $contrato['numero_novo'] }}</td>
                                     <td>{{ $contrato['bairro'] ?? $contrato['bairro_novo'] }}</td>
-                                    <td>{{ maskCidade($contrato['cidade']) ?? '-' }}</td>
+                                    <td>{{ maskCidade($contrato['cidade']) ?? 'N/A' }}</td>
                                     <td>{{ maskTipo($contrato['tipo']) }}</td>
                                 </tr>
                             @endforeach
