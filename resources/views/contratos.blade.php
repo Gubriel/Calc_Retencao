@@ -17,28 +17,31 @@
             <a href="{{ route('cliente.form') }}" class="btn absolute top-4 left-4 flex items-center space-x-2 text-white font-semibold btn-danger">← Voltar</a>
             <a href="{{ route('sair') }}" class="btn absolute top-4 right-4 flex items-center space-x-2 text-white font-semibold btn-danger">Sair</a>
 
-            <div class="p-1 mb-6 mt-5 rounded shadow">
-                <h1 class="text-2xl p-3 font-bold text-center text-red-900">{{ $id_cliente }} - {{ $nomeCliente }}</h1>
-                <div class="text-left flex pr-6 pl-6 pt-3 text-xl text-red-900">
-                    <div class="row p-1 col-6 bg-gray-300 justify-content-between">
-                        <div class="col-sm-6">CPF/CNPJ: 112.321.435-63</div>
-                        <div class="col-md-6">Endereço: Rua rer</div>
-                        <div class="col-md-6">Numero: 71</div>
-                        <div class="col-md-6">CEP: 34310-001</div>
-                        <div class="col-md-6">Bairro: rewdfdsx</div>
-                        <div class="col-md-6">Condominio: 34223</div>
-                        <div class="col-md-6">Cidade: ssssssss</div>
-                        <div class="col-md-6">Complemento: relldlfms,dm</div>
-                    </div>
-                    <div class="row p-1 col-6 justify-content-between">
-                        <div class="col-md-6">Data de cadastro:</div>
-                        <div class="col-md-6">Total de parcelas em atraso:</div>
-                        <div class="col-md-6">Total de Contratos de internet ativos:</div>
+            <div class="mt-5 flex-column itens-center rounded-top border-4 border-bottom-0 border-top-0 border-success shadow">
+                <div class="text-center itens-center justify-center flex text-xl text-black">
+                    <div class="p-2 col-md-12 bg-success justify-content-between">
+                        <h1 class="text-2xl font-bold text-center text-white">{{ $id_cliente }} - {{ $nomeCliente }}</h1>
                     </div>
                 </div>
-                <div class="text-center itens-center flex pr-6 pl-6 pt-3 text-xl text-black">
-                    <div class="row p-1 col-md-12 bg-green-300 justify-content-between">
-                        <div class="col-md-12">Reter cliente</div>
+                <div class="text-left justify-center flex p-3 text-xl">
+                    <div class="row p-1 flex-col col-3">
+                        <div>CPF/CNPJ: 112.321.435-63</div>
+                        <div>Endereço: Rua rer</div>
+                        <div>Numero: 71</div>
+                    </div>
+                    <div class="row p-1 flex-col col-3">
+                        <div>Bairro: rewdfdsx</div>
+                        <div>CEP: 34310-001</div>
+                        <div>Condominio: 34223</div>
+                    </div>
+                    <div class="row p-1 flex-col col-3">
+                        <div>Cidade: ssssssss</div>
+                        <div>Complemento: relldlfms,dm</div>
+                        <div>Data de cadastro: 90/12/1985</div>
+                    </div>
+                    <div class="row p-1 flex-col col-3">
+                        <div>Total de parcelas em atraso: 4</div>
+                        <div>Total de Contratos de internet ativos: 4</div>
                     </div>
                 </div>
             </div>
@@ -46,10 +49,10 @@
             @if(empty($contratos))
                 <div class="alert alert-warning">Nenhum contrato ativo encontrado.</div>
             @else
-                <div class="p-1 bg-red-900 rounded shadow">
-                    <table class="table caption-top table-bg-red table-borderless mb-0 table-striped table-hover">
-                        <caption class="text-white text-xl font-semibold text-center">Planos ativos</caption>
-                        <thead class="table-active">
+                <div class="p-1 bg-success shadow rounded-bottom">
+                    <table class="table caption-top table-borderless mb-0">
+                        <caption class="text-white text-xl mb-1 font-semibold text-center">Planos ativos</caption>
+                        <thead class="table-success">
                             <tr>
                                 <th>ID</th>
                                 <th>Plano</th>
@@ -72,7 +75,7 @@
                                             <input type="hidden" name="id" value="{{ $contrato['id'] }}">
                                             <input type="hidden" name="id_cliente" value="{{ $id_cliente }}">
                                             <input type="hidden" name="nome" value="{{ $contrato['contrato'] }}">
-                                            <button type="submit" class="text-red-700 hover:text-red-900 font-semibold w-full text-left">
+                                            <button type="submit" class="hover:text-red-900 font-semibold w-full text-left">
                                                 {{ $contrato['contrato'] ?? '-' }}
                                             </button>
                                         </td>
@@ -95,6 +98,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="p-2 bg-success">
+                        <h1 class="text-xl font-bold text-center text-white">Reter Cliente</h1>
+                    </div>
                 </div>
                 @endif
             </div>
