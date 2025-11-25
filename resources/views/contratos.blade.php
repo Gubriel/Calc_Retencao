@@ -38,14 +38,14 @@
             <a href="{{ route('cliente.form') }}" class="btn btn-outline-danger">← Voltar</a>
             <a class="btn btn-outline-danger" href="{{ route('sair') }}">Sair</a>
         </div>
-    </nav>
+    </nav> terminar fluxo
     <div class="container">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h1 class="fw-bold text-red-700 mb-3">
                     {{ $id_cliente }} - {{ $nomeCliente }}
                 </h1>
-                <div class="row  mb-3">
+                <div class="row justify-content- mb-3">
                     <div class="col-md-4">
                         <p><strong>CPF/CNPJ:</strong> 112.321.435-63</p>
                         <p><strong>Endereço:</strong> Rua Rer, nº 71</p>
@@ -123,7 +123,7 @@
                                 <td>{{ $contrato['numero'] ?? $contrato['numero_novo'] }}</td>
                                 <td>{{ $contrato['bairro'] ?? $contrato['bairro_novo'] }}</td>
                                 <td>{{ maskCidade($contrato['cidade']) ?? 'N/A' }}</td>
-                                <td>{{ maskTipo($contrato['tipo']) }}</td>
+                                <td><span class="badge bg-secondary">{{ maskTipo($contrato['tipo']) }}</span></td>
                             </tr>
                         @endforeach
                     </tbody>
