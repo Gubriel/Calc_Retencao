@@ -8,9 +8,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-light">
+    <nav class="navbar navbar-light bg-white shadow-sm mb-4 px-4">
+        <div class="container-fluid d-flex justify-content-end">
+            <a class="btn btn-outline-danger" href="{{ route('sair') }}">Sair</a>
+        </div>
+    </nav>
 <div class="container w-full max-w-2xl py-5">
-    <a href="{{ route('sair') }}" class="btn absolute top-4 right-4 flex items-center space-x-2 text-white font-semibold btn-danger">Sair</a>
-    <h1 class="text-2xl font-bold text-center mb-6 mt-5 text-red-900">Consultar Cliente</h1>
+    <h1 class="text-2xl font-bold text-center mb-6 mt-5 text-red-700">Consultar Cliente</h1>
 
 
     @if ($errors->any())
@@ -20,7 +24,7 @@
     <form action="{{ route('cliente.buscar') }}" method="POST" class="p-4 bg-white rounded shadow">
         @csrf
         <div class="mb-3">
-            <label class="form-label fw-bold text-red-900">Digite o CPF ou CNPJ:</label>
+            <label class="form-label fw-bold text-red-700">Digite o CPF ou CNPJ:</label>
             <input type="text" name="cpf_cnpj" class="form-control" placeholder="Ex: 12345678900" required>
         </div>
 
