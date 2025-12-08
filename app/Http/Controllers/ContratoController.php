@@ -10,8 +10,7 @@ class ContratoController extends Controller
     public function listarContratos()
     {
 
-        $id_cliente = session('id_cliente');
-        $nomeCliente = session('nome_cliente');
+        $cliente = session('dados_cliente');
 
         $headers = [
             'Authorization' => 'Basic ' . base64_encode(env('IXC_API_AUTH')),
@@ -21,7 +20,7 @@ class ContratoController extends Controller
 
         $body = [
             "qtype" => "cliente_contrato.id_cliente",
-            "query" => $id_cliente,
+            "query" => $cliente['id'],
             "oper" => "=",
             "page" => "1",
             "rp" => "20",
@@ -29,6 +28,21 @@ class ContratoController extends Controller
             "grid_param" => '[{"TB":"cliente_contrato.status","OP":"=","P":"A"}]',
             "sortorder" => "asc"
         ];
+
+        $bodyReceber = [
+            'qtype' => 'fn_areceber.id_cliente',
+            'query' => $cliente['id'],
+            'oper' => '=',
+            'page' => '1',
+            'rp' => '20',
+            'sortname' => 'fn_areceber.id',
+            'sortorder' => 'desc',
+            'grid_param' => '[{"TB":"fn_areceber.status", "OP":"=", "P":"A"}]'
+        ];
+
+        $responseReceber = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
+            ->post(env('IXC_API_URL') . '/fn_areceber', $bodyReceber);
 
         $response = Http::withHeaders($headers)
             ->withOptions(['verify' => false])
@@ -40,7 +54,11 @@ class ContratoController extends Controller
 
         $data = $response->json();
         $contratos = $data['registros'] ?? [];
+        $count_contratos = count($data['registros'] ?? []);
+        $dataReceber = $responseReceber->json();
+        $aReceber = $dataReceber['registros'] ?? [];
+        $count_aReceber = count($dataReceber['registros'] ?? []);
 
-        return view('contratos', compact('contratos', 'nomeCliente', 'id_cliente'));
+        return view('contratos', compact('contratos', 'count_contratos', 'count_aReceber'));
     }
 }

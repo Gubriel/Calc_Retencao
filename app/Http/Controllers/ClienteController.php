@@ -33,29 +33,6 @@ class ClienteController extends Controller
             'grid_param' => '[{"TB":"cliente.ativo","OP":"=","P":"S"}]'
         ];
 
-        /*
-        $bodyReceber = [
-            'qtype' => 'fn_areceber.id_cliente',
-            'query' => $cpfCnpj,
-            'oper' => '>',
-            'page' => '1',
-            'rp' => '200',
-            'sortname' => 'fn_areceber.id',
-            'sortorder' => 'desc',
-            'grid_param' => '[{"TB":"fn_areceber.status", "OP":"=", "P":"A"}]'
-        ];
-
-        $bodyOS = [
-            'qtype' => 'su_oss_chamado.id_contrato_kit',
-            'query' => '256674',
-            'oper' => '=',
-            'page' => '1',
-            'rp' => '200',
-            'sortname' => 'su_oss_chamado.id',
-            'sortorder' => 'desc',
-            'grid_param' => '[{"TB":"su_oss_chamado.id_assunto", "OP":"=", "P":"17"},{"TB":"su_oss_chamado.status", "OP":"=", "P":"F"},{"TB":"su_oss_chamado.tipo", "OP":"=", "P":"C"}]'
-        ];*/
-
         $response = Http::withHeaders($headers)
             ->withOptions(['verify' => false])
             ->withBody(json_encode($body), 'aplication/json')
@@ -73,23 +50,8 @@ class ClienteController extends Controller
 
         $cliente = $data['registros'][0];
 
-        $bodyFaturas = [
-            'qtype' => 'fatura.id_cliente',
-            'query' => $cliente['id'],
-            'oper' => '=',
-            'page' => '1',
-            'rp' => '20000',
-            'sortorder' => 'desc'
-        ];
-
-        $responseFaturas = Http::withHeaders($headers)
-            ->withOptions(['verify' => false])
-            ->withBody(json_encode($body), 'aplication/json')
-            ->post(env('IXC_API_URL') . '/faturas');
-
         session([
-            'id_cliente' => $cliente['id'],
-            'nome_cliente' => $cliente['razao'] ?? $cliente['fantasia']
+            'dados_cliente' => $cliente,
         ]);
 
         return redirect()->route('contratos.listar');

@@ -14,6 +14,10 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    @php
+        $cliente = session('dados_cliente');
+    @endphp
+
     <style>
         body {
             background: #f3f5f7;
@@ -38,36 +42,37 @@
             <a href="{{ route('cliente.form') }}" class="btn btn-outline-danger">← Voltar</a>
             <a class="btn btn-outline-danger" href="{{ route('sair') }}">Sair</a>
         </div>
-    </nav> terminar fluxo
+    </nav>
     <div class="container">
         <div class="card shadow-sm">
             <div class="card-body">
                 <h1 class="fw-bold text-red-700 mb-3">
-                    {{ $id_cliente }} - {{ $nomeCliente }}
+                    {{ $cliente['id'] }} - {{ $cliente['razao'] }}
                 </h1>
-                <div class="row justify-content- mb-3">
+                <div class="row mb-3">
                     <div class="col-md-4">
-                        <p><strong>CPF/CNPJ:</strong> 112.321.435-63</p>
-                        <p><strong>Endereço:</strong> Rua Rer, nº 71</p>
-                        <p><strong>Bairro:</strong> rewdfdsx</p>
+                        <p><strong>CPF/CNPJ:</strong> {{ $cliente['cnpj_cpf'] }}</p>
+                        <p><strong>Endereço:</strong> {{ $cliente['endereco'] }}</p>
+                        <p><strong>Bairro:</strong> {{ $cliente['bairro'] }}</p>
                     </div>
                     <div class="col-md-4">
-                        <p><strong>CEP:</strong> 34310-001</p>
-                        <p><strong>Condomínio:</strong> 34223</p>
-                        <p><strong>Cidade:</strong> ssssssss</p>
+                        <p><strong>CEP:</strong> {{ $cliente['cep'] }}</p>
+                        <p><strong>Numero:</strong> {{ $cliente['numero'] ?? 'N/A' }}</p>
+                        <p><strong>Cidade:</strong> {{ maskCidade($cliente['cidade']) }}</p>
                     </div>
                     <div class="col-md-4">
-                        <p><strong>Complemento:</strong> relldlfms,dm</p>
-                        <p><strong>Data de cadastro:</strong> 09/12/1984</p>
+                        <p><strong>Complemento:</strong> {{ $cliente['complemento'] ?? 'Não informado' }}</p>
+                        <p><strong>Data de cadastro:</strong> {{ maskData($cliente['data_cadastro']) }}</p>
+                        <p><strong>WhatsApp:</strong> {{ $cliente['whatsapp' ]}}</p>
                     </div>
                 </div>
                 <hr>
                 <div class="row mt-2 text-center">
                     <div class="col-md-6">
-                        <p><strong>Total de parcelas em atraso:</strong> 4</p>
+                        <p><strong>Total de parcelas a receber:</strong> {{ $count_aReceber }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Contratos de internet ativos:</strong> 4</p>
+                        <p><strong>Numero de contratos ativos:</strong> {{ $count_contratos }}</p>
                     </div>
                 </div>
             </div>
@@ -103,7 +108,7 @@
                                     <td>
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $contrato['id'] }}">
-                                        <input type="hidden" name="id_cliente" value="{{ $id_cliente }}">
+                                        <input type="hidden" name="id_cliente" value="{{ $cliente['id'] }}">
                                         <input type="hidden" name="nome" value="{{ $contrato['contrato'] }}">
                                         <button type="submit" class="hover:text-red-700 font-semibold w-full text-left">
                                             {{ $contrato['contrato'] ?? '-' }}

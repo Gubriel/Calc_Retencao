@@ -16,7 +16,6 @@
 <div class="container w-full max-w-2xl py-5">
     <h1 class="text-2xl font-bold text-center mb-6 mt-5 text-red-700">Consultar Cliente</h1>
 
-
     @if ($errors->any())
         <div class="alert alert-danger">{{ $errors->first() }}</div>
     @endif
