@@ -55,6 +55,7 @@ class ContratoController extends Controller
         $data = $response->json();
         $contratos = $data['registros'] ?? [];
         $count_contratos = count($data['registros'] ?? []);
+
         $dataReceber = $responseReceber->json();
         $aReceber = $dataReceber['registros'] ?? [];
         $count_aReceber = count($dataReceber['registros'] ?? []);

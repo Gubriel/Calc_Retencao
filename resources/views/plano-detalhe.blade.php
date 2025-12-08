@@ -27,7 +27,7 @@
                     <hr class="mb-4">
                     <div class="mb-4 space-y-2">
                         <div>
-                            <label class="block text-red-800 font-semibold">Base de Tempo</label>
+                            <label class="block text-red-800 font-semibold">Tempo de Base</label>
                             <input type="text" nome="cliente_nome" value="{{ maskMeses($base) }}" class="w-full px-2 py-2 text-center rounded bg-gray-200" disabled>
                         </div>
                         @if ($qntd_visitas > 0)

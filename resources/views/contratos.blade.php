@@ -63,16 +63,19 @@
                     <div class="col-md-4">
                         <p><strong>Complemento:</strong> {{ $cliente['complemento'] ?? 'Não informado' }}</p>
                         <p><strong>Data de cadastro:</strong> {{ maskData($cliente['data_cadastro']) }}</p>
-                        <p><strong>WhatsApp:</strong> {{ $cliente['whatsapp' ]}}</p>
+                        <p><strong>WhatsApp:</strong> {{ $cliente['whatsapp'] }}</p>
                     </div>
                 </div>
                 <hr>
                 <div class="row mt-2 text-center">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <p><strong>Total de parcelas a receber:</strong> {{ $count_aReceber }}</p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <p><strong>Numero de contratos ativos:</strong> {{ $count_contratos }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p><strong>Tempo de Base:</strong> </p>
                     </div>
                 </div>
             </div>
@@ -84,55 +87,58 @@
         <!-- TABELA DE PLANOS ATIVOS -->
         <div class="card mt-2 shadow-sm">
             <div class="card-body">
-                <h5 class="fw-bold text-center text-red-700 mb-3">PLANOS ATIVOS</h5>
-                <table class="table table-hover align-middle">
-                    <thead class="table-secondary">
-                        <tr>
-                            <th>ID</th>
-                            <th>Plano</th>
-                            <th>Retenção</th>
-                            <th>Ativação</th>
-                            <th>Endereço</th>
-                            <th>Número</th>
-                            <th>Bairro</th>
-                            <th>Cidade</th>
-                            <th>Tipo</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach($contratos as $contrato)
+                <h5 class="fw-bold text-center text-red-700 mb-3">CONTRATOS ATIVOS</h5>
+                @if (empty($contratos))
+                    <div class="alert text-center bg-gray-200">Nenhum contrato ativo no momento.</div>
+                @else
+                    <table class="table table-hover align-middle">
+                        <thead class="table-secondary">
                             <tr>
-                                <td>{{ $contrato['id'] ?? '-' }}</td>
-                                <form action="{{ route('cliente.detalhes') }}" method="POST" class="m-0 p-0">
-                                    <td>
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $contrato['id'] }}">
-                                        <input type="hidden" name="id_cliente" value="{{ $cliente['id'] }}">
-                                        <input type="hidden" name="nome" value="{{ $contrato['contrato'] }}">
-                                        <button type="submit" class="hover:text-red-700 font-semibold w-full text-left">
-                                            {{ $contrato['contrato'] ?? '-' }}
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <select class="form-select w-32" name="tx_retencao">
-                                            <option value="5">5%</option>
-                                            <option value="7.5">7,5%</option>
-                                            <option selected value="10">10%</option>
-                                            <option value="12.5">12,5%</option>
-                                        </select>
-                                    </td>
-                                </form>
-                                <td>{{ maskData($contrato['data_ativacao']) ?? 'N/A' }}</td>
-                                <td>{{ $contrato['endereco'] ?? $contrato['endereco_novo'] }}</td>
-                                <td>{{ $contrato['numero'] ?? $contrato['numero_novo'] }}</td>
-                                <td>{{ $contrato['bairro'] ?? $contrato['bairro_novo'] }}</td>
-                                <td>{{ maskCidade($contrato['cidade']) ?? 'N/A' }}</td>
-                                <td><span class="badge bg-secondary">{{ maskTipo($contrato['tipo']) }}</span></td>
+                                <th>ID</th>
+                                <th>Plano</th>
+                                <th>Retenção</th>
+                                <th>Ativação</th>
+                                <th>Endereço</th>
+                                <th>Número</th>
+                                <th>Bairro</th>
+                                <th>Cidade</th>
+                                <th>Tipo</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($contratos as $contrato)
+                                <tr>
+                                    <td>{{ $contrato['id'] ?? '-' }}</td>
+                                    <form action="{{ route('cliente.detalhes') }}" method="POST" class="m-0 p-0">
+                                        <td>
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $contrato['id'] }}">
+                                            <input type="hidden" name="id_cliente" value="{{ $cliente['id'] }}">
+                                            <input type="hidden" name="nome" value="{{ $contrato['contrato'] }}">
+                                            <button type="submit" class="hover:text-red-700 font-semibold w-full text-left">
+                                                {{ $contrato['contrato'] ?? '-' }}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <select class="form-select w-32" name="tx_retencao">
+                                                <option value="5">5%</option>
+                                                <option value="7.5">7,5%</option>
+                                                <option selected value="10">10%</option>
+                                                <option value="12.5">12,5%</option>
+                                            </select>
+                                        </td>
+                                    </form>
+                                    <td>{{ maskData($contrato['data_ativacao']) ?? 'N/A' }}</td>
+                                    <td>{{ $contrato['endereco'] ?? $contrato['endereco_novo'] }}</td>
+                                    <td>{{ $contrato['numero'] ?? $contrato['numero_novo'] }}</td>
+                                    <td>{{ $contrato['bairro'] ?? $contrato['bairro_novo'] }}</td>
+                                    <td>{{ maskCidade($contrato['cidade']) ?? 'N/A' }}</td>
+                                    <td><span class="badge bg-secondary">{{ maskTipo($contrato['tipo']) }}</span></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
             </div>
         </div>
     </div>
