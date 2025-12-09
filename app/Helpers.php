@@ -16,6 +16,21 @@ if (!function_exists('maskMeses')) {
     function maskMeses($quantidade)
     {
         $quantidade = (int) $quantidade;
+        if ($quantidade >= 12) {
+            $anos = intdiv($quantidade, 12);
+            $meses_restantes = $quantidade % 12;
+            if ($anos === 1) {
+                $str_ano = "Ano";
+            } else {
+                $str_ano = "Anos";
+            }
+            if ($meses_restantes === 1) {
+                $str_mes = "Mês";
+            } else {
+                $str_mes = "Meses";
+            }
+            return "{$anos} {$str_ano} e {$meses_restantes} {$str_mes}";
+        }
         return $quantidade === 1 ? '1 Mês' : "{$quantidade} Meses";
     }
 }

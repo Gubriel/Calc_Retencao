@@ -75,7 +75,7 @@
                         <p><strong>Numero de contratos ativos:</strong> {{ $count_contratos }}</p>
                     </div>
                     <div class="col-md-4">
-                        <p><strong>Tempo de Base:</strong> </p>
+                        <p><strong>Tempo de Base:</strong> {{ maskMeses($count_faturas) }}</p>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,6 @@ class ContratoController extends Controller
 {
     public function listarContratos()
     {
-
         $cliente = session('dados_cliente');
 
         $headers = [
@@ -18,24 +17,35 @@ class ContratoController extends Controller
             'Content-Type' => 'application/json',
         ];
 
-        $body = [
+        // Buscar contratos
+        $bodyContratos = [
             "qtype" => "cliente_contrato.id_cliente",
             "query" => $cliente['id'],
             "oper" => "=",
             "page" => "1",
-            "rp" => "20",
+            "rp" => "50",
             "sortname" => "cliente_contrato.id",
-            "grid_param" => '[{"TB":"cliente_contrato.status","OP":"=","P":"A"}]',
             "sortorder" => "asc"
         ];
 
+        $responseContratos = Http::withHeaders($headers)
+            ->withOptions(['verify' => false])
+            ->post(env('IXC_API_URL') . '/cliente_contrato', $bodyContratos);
+
+        if ($responseContratos->failed()) {
+            return back()->withErrors(['msg' => 'Erro ao consultar contratos.']);
+        }
+
+        $contratos = collect($responseContratos->json()['registros'] ?? [])
+                        ->where('status', 'A');
+
+        // Buscar A Receber
         $bodyReceber = [
             'qtype' => 'fn_areceber.id_cliente',
             'query' => $cliente['id'],
             'oper' => '=',
             'page' => '1',
             'rp' => '20',
-            'sortname' => 'fn_areceber.id',
             'sortorder' => 'desc',
             'grid_param' => '[{"TB":"fn_areceber.status", "OP":"=", "P":"A"}]'
         ];
@@ -44,22 +54,41 @@ class ContratoController extends Controller
             ->withOptions(['verify' => false])
             ->post(env('IXC_API_URL') . '/fn_areceber', $bodyReceber);
 
-        $response = Http::withHeaders($headers)
-            ->withOptions(['verify' => false])
-            ->post(env('IXC_API_URL') . '/cliente_contrato', $body);
+        $aReceber = $responseReceber->json()['registros'] ?? [];
 
-        if ($response->failed()) {
-            return back()->withErrors(['msg' => 'Erro ao consultar contratos.']);
+        // Buscar faturas de todos os contratos
+        $todasFaturas = collect();
+
+        foreach ($contratos as $contrato) {
+
+            $bodyFaturas = [
+                'qtype' => 'fatura.id_contrato',
+                'query' => $contrato['id'],
+                'oper' => '=',
+                'page' => '1',
+                'rp' => '5000',
+                'sortorder' => 'desc'
+            ];
+
+            $responseFaturas = Http::withHeaders($headers)
+                ->withOptions(['verify' => false])
+                ->post(env('IXC_API_URL') . '/fatura', $bodyFaturas);
+
+            if ($responseFaturas->successful()) {
+                $faturas = $responseFaturas->json()['registros'] ?? [];
+                $todasFaturas = $todasFaturas->merge($faturas);
+            }
         }
 
-        $data = $response->json();
-        $contratos = $data['registros'] ?? [];
-        $count_contratos = count($data['registros'] ?? []);
+        // dd($todasFaturas);
 
-        $dataReceber = $responseReceber->json();
-        $aReceber = $dataReceber['registros'] ?? [];
-        $count_aReceber = count($dataReceber['registros'] ?? []);
-
-        return view('contratos', compact('contratos', 'count_contratos', 'count_aReceber'));
+        return view('contratos', [
+            'contratos' => $contratos,
+            'count_contratos' => $contratos->count(),
+            'aReceber' => $aReceber,
+            'count_aReceber' => count($aReceber),
+            'faturas' => $todasFaturas,
+            'count_faturas' => $todasFaturas->count(),
+        ]);
     }
 }

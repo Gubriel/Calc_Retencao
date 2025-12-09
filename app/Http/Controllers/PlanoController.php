@@ -76,6 +76,7 @@ class PlanoController extends Controller
             return back()->withErrors(['msg' => 'Erro ao consultar as OSs.']);
         }
 
+
         $dataFaturas = $responseFaturas->json();
         $faturas = $dataFaturas['registros'] ?? [];
 
